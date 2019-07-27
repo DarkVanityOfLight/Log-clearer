@@ -9,6 +9,7 @@ And there will be a little suprise left over, have fun with it.
 
 
 Usage:
+
 This programm needs sudo rights
 
 sudo python3 clearlogs.py
