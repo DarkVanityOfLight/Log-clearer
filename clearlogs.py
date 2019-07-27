@@ -65,6 +65,9 @@ while valid == False:
 				f = open(str(i), "w+")
 				f.write(Banner)
 				f.close()
+				
+				print("File: {} got shred sucsefully".format(i))
+				
 			except:
 				print("File does not exit")
 				
