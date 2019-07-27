@@ -23,7 +23,7 @@ Valkyrie
 
 
 """
-pattern1 = "*.*"
+pattern = "*.*"
 
 
 
