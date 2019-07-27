@@ -23,7 +23,9 @@ Valkyrie
 
 
 """
-pattern = "*.log"
+pattern1 = "*.*"
+
+
 
 for path, subdirs, files in os.walk("/var/log"):
 
@@ -54,8 +56,22 @@ while valid == False:
 		sys.exit(0)
 
 	elif i == "N":
-		valid = True
 		print("What do you want here?")
+		print("Oh you want to cleare a custom file?")
+		i = input("Give me the path to the custom file: ")
+		if str(i) != "":
+			os.system("shred --force --exact -z {}".format(str(i)))
+			f = open(str(i), "w+")
+			f.write(Banner)
+			f.close()
+			
+		else:
+			print("That was not a file")
+			print("I think you should leave now")
+
+			sys.exit(0)
+			
+			
 		valid = False
 
 	else:
