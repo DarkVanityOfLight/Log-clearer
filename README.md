@@ -9,6 +9,14 @@ And there will be a little suprise left over, have fun with it.
 
 
 Usage:
-python3 clearlogs.py
+This programm needs sudo rights
+
+sudo python3 clearlogs.py
+
+or
+
+sudo chmod +x clearlogs.py
+./clearlogs.py
+
 
 And thats it, no one will ask or know about your little actions ;)
