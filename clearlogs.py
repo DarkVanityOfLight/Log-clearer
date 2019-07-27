@@ -61,9 +61,14 @@ while valid == False:
 		i = input("Give me the path to the custom file: ")
 		if str(i) != "":
 			os.system("shred --force --exact -z {}".format(str(i)))
-			f = open(str(i), "w+")
-			f.write(Banner)
-			f.close()
+			try:
+				f = open(str(i), "w+")
+				f.write(Banner)
+				f.close()
+			except:
+				print("File does not exit")
+				
+				
 			
 		else:
 			print("That was not a file")
