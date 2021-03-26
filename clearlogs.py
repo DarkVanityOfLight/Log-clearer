@@ -52,7 +52,7 @@ def args():
     parser = argparse.ArgumentParser()
     parser.add_argument("-v", "--verbose", help="Increase output verbosity", action="store_true")
     parser.add_argument("path", nargs="?", default="/var/log", type=str, help="The file or directory path to shred")
-    parser.add_argument("-p", "--pattern", type=str, default="*.*", help="Only shred files that match this pattern")
+    parser.add_argument("-p", "--pattern", type=str, default="*", help="Only shred files that match this pattern")
     parser.add_argument("-r", "--remove", help="Remove the file/files after shredding them", action="store_true")
     parser.add_argument("-b", "--banner", help="Put a banner into every shreded file", action="store_true")
     args = parser.parse_args()
