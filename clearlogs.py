@@ -42,7 +42,7 @@ def shred_dir(directory, pattern="*.*", verbose=True, remove=False, banner=False
     for subdir, dirs, files in os.walk(directory):
         for file in files:
             if fnmatch(file, pattern):
-                shred(file, remove=remove, banner=banner)
+                shred(os.path.join(subdir, file), remove=remove, banner=banner)
             if verbose:
                 print("[+]File {} got shreded!".format(file))
 
