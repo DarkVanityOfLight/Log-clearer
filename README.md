@@ -1,23 +1,16 @@
 # Log-clearer
 
-Linux only
-
-This app will work with Shred, 
-it will clear all logs located at /var/log.
-After the clear there will be no known way to restore these logs.
-And there will be a little suprise left over, have fun with it.
+This programm will use shred to clean out all specified files/directorys,
+no recovery should be possible afterwards.
 
 
 Usage:
 
-This programm needs sudo rights
+This programm might need sudo rights to shred certain dirs/files
 
-sudo python3 clearlogs.py
-
-or
-
-sudo chmod +x clearlogs.py
-./clearlogs.py
+```
+./clearlogs.py -h
+```
 
 
-And thats it, no one will ask or know about your little actions ;)
+And thats it.
