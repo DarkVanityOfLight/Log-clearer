@@ -30,6 +30,7 @@ def add_banner(file):
         f.write(BANNER)
 
 def shred(file, remove=False, banner=False):
+    print(file)
     if not remove:
         os.system("shred --force --exact -z {}".format(file))
     else:
@@ -43,8 +44,8 @@ def shred_dir(directory, pattern="*.*", verbose=True, remove=False, banner=False
         for file in files:
             if fnmatch(file, pattern):
                 shred(os.path.join(subdir, file), remove=remove, banner=banner)
-            if verbose:
-                print("[+]File {} got shreded!".format(file))
+                if verbose:
+                    print("[+]File {} got shreded!".format(file))
 
 
 def args():
