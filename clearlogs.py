@@ -2,7 +2,7 @@ import os, sys
 from fnmatch import fnmatch
 import argparse
 
-Banner="""
+BANNER="""
 
                |))    |))
  .             |  )) /   ))
@@ -27,7 +27,7 @@ Valkyrie
 
 def add_banner(file):
     with open(file, 'w+') as f:
-        f.write(Banner)
+        f.write(BANNER)
 
 def shred(file, remove=False, banner=False):
     if not remove:
