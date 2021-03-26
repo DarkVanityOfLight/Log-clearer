@@ -1,12 +1,13 @@
-import os
+import os, sys
 from fnmatch import fnmatch
+import argparse
 
 Banner="""
 
                |))    |))
  .             |  )) /   ))
  \\   ^ ^      |    /      ))
-  \\(((  )))   |   /        ))
+      \\(((  )))   |   /        ))
    / G    )))  |  /        ))
   |o  _)   ))) | /       )))
    --' |     ))`/      )))
@@ -23,65 +24,48 @@ Valkyrie
 
 
 """
-pattern = "*.*"
+
+def add_banner(file):
+    with open(file, 'w+') as f:
+        f.write(Banner)
+
+def shred(file, remove=False, banner=False):
+    if not remove:
+        os.system("shred --force --exact -z {}".format(file))
+    else:
+        os.system("shred --force --exact -z --remove {}".format(file))
+        
+    if banner:
+        add_banner(file) 
+
+def shred_dir(directory, pattern="*.*", verbose=True, remove=False, banner=False):
+    for subdir, dirs, files in os.walk(directory):
+        for file in files:
+            if fnmatch(file, pattern):
+                shred(file, remove=remove, banner=banner)
+            if verbose:
+                print("[+]File {} got shreded!".format(file))
 
 
+def args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-v", "--verbose", help="Increase output verbosity", action="store_true")
+    parser.add_argument("path", type=str, help="The file or directory path to shred")
+    parser.add_argument("-p", "--pattern", type=str, default="*.*", help="Only shred files that match this pattern")
+    parser.add_argument("-r", "--remove", help="Remove the file/files after shredding them", action="store_true")
+    parser.add_argument("-b", "--banner", help="Put a banner into every shreded file", action="store_true")
+    args = parser.parse_args()
+    return args
 
-for path, subdirs, files in os.walk("/var/log"):
+if __name__ == "__main__":
+    pos_args = args()
 
-	for name in files:
+    print("[-]Starting to shred")
+    if os.path.isfile(pos_args.path):
+        shred(pos_args.path, pos_args.remove, pos_args.banner)
+        if pos_args.verbose:
+            print("[+]File {} got shreded!".format(pos_args.path))
+    else:
+        shred_dir(pos_args.path, pos_args.pattern, pos_args.verbose, pos_args.remove, pos_args.banner)
 
-		if fnmatch(name, pattern):
-			print("File: " + name + " gets shred.\n")
-			os.system("shred --force --exact -z {}".format(os.path.join(path, name)))
-			f = open(os.path.join(path, name), 'w+')
-			f.write(Banner)
-			f.close()
-
-
-
-
-valid = False
-while valid == False:
-
-	i = str(input("Do you wanna leave now? [Y]es, [N]o: "))
-
-
-	if i == "Y":
-		valid = True
-		os.system("clear")
-		os.system('>.bash_history')
-		print(Banner)
-		import sys
-		sys.exit(0)
-
-	elif i == "N":
-		print("What do you want here?")
-		print("Oh you want to cleare a custom file?")
-		i = input("Give me the path to the custom file: ")
-		if str(i) != "":
-			os.system("shred --force --exact -z {}".format(str(i)))
-			try:
-				f = open(str(i), "w+")
-				f.write(Banner)
-				f.close()
-				
-				print("File: {} got shred sucsefully".format(i))
-				
-			except:
-				print("File does not exit")
-				
-				
-			
-		else:
-			print("That was not a file")
-			print("I think you should leave now")
-
-			sys.exit(0)
-			
-			
-		valid = False
-
-	else:
-		print("False Input try again")
-		valid = False
+    print("[-]Finished shreding")
