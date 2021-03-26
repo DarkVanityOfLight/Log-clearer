@@ -30,7 +30,6 @@ def add_banner(file):
         f.write(BANNER)
 
 def shred(file, remove=False, banner=False):
-    print(file)
     if not remove:
         os.system("shred --force --exact -z {}".format(file))
     else:
